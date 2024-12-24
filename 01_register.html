@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form action="" onsubmit="return saveForm()" method="post">
             <h1>Register Here!</h1>
             <div class="input-box">
                 <div class="input-field">
@@ -17,7 +17,7 @@
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" id="username" required>
                     <i class='bx bxs-user-circle'></i>
                 </div>
             </div>
@@ -47,13 +47,13 @@
                     <i class='bx bx-globe'></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" placeholder="Social Media Handle" required>
+                    <input type="text" placeholder="Social Media Handle" >
                     <i class='bx bx-chat'></i>
                 </div>
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" id="password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="input-field">
@@ -65,5 +65,23 @@
             <button type="submit" class="btn">Register!</button>
         </form>
     </div>
+
+    <script type="text/javascript"language="javascript">
+        function saveForm() {
+        let un = document.getElementById("username").value;
+        let pw = document.getElementById("password").value;
+
+        // Save to localStorage
+        localStorage.setItem("user", JSON.stringify({ username: un, password: pw }));
+        
+        alert("Account created successfully! Redirecting to login page...");
+        
+        // Redirect to login page
+        window.location.href = "01_login.html";
+        
+        return false; // Prevent form submission
+           }
+    </script>
+    
 </body>
 </html>
