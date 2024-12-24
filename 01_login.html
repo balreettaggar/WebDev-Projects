@@ -9,22 +9,49 @@
 </head>
 <body>
     <div class="wrapper">
-        <form action="">
+        <form action="" method="post" onsubmit="return validateLogin()">
             <h1>Already A User ?</h1>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" id="username" required>
                     <i class='bx bxs-user-circle'></i>
                 </div>
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" id="password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
             </div>
             <button type="submit" class="btn">Login</button>
         </form>
     </div>
+
+    <script>
+        function validateLogin() {
+            let enteredUsername = document.getElementById("username").value;
+            let enteredPassword = document.getElementById("password").value;
+    
+            let storedUser = JSON.parse(localStorage.getItem("user"));
+    
+            if (storedUser) {
+
+                if (enteredUsername === storedUser.username && enteredPassword === storedUser.password) {
+                    alert("Login successful!");
+                    
+                    window.location.href = "01_welcome.html";
+                    
+                    return false;
+                } else {
+                    alert("Invalid username or password!");
+                    return false; 
+                }
+            } else {
+                alert("No user found! Please create an account.");
+                return false; 
+            }
+        }
+    </script>
+    
 </body>
 </html>
