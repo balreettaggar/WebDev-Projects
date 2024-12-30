@@ -85,3 +85,11 @@ body {
     color: black;
     margin-top: 25px;
 }
+
+.wrapper .register {
+    margin-top: 7px;
+}
+
+.wrapper .register a {
+    color: white;
+}
