@@ -24,13 +24,13 @@ body {
     backdrop-filter: blur(5px);
     border-radius: 10px;
     color: white;
-    padding: 25px 25px 25px;
+    padding: 15px 15px 15px;
 }
 
 .wrapper h1 {
     font-size: 35px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .wrapper .input-box {
@@ -45,7 +45,7 @@ body {
     width: 45%;
     height: 40px;
     /* background: salmon; */
-    margin: 13px 0px;
+    margin: 10px 0px;
 }
 
 .input-box .input-field input {
@@ -73,19 +73,30 @@ body {
 }
 
 .wrapper label {
-    display: inline-block;
-    font-size: 13px;
-    margin: 10px 0 20px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 15px;
+    margin: 10px 0 10px;
     align-items: center;
-    margin-left: 250px;
+}
+.wrapper .check a {
+    color: white;
+}
+
+.wrapper .check {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .wrapper label input {
     accent-color: white;
-    margin-right: 5px;
+    margin-right: 3px;
+    
 }
 
 .wrapper .btn {
+    margin-top: 7px;
     margin-left: 95px;
     width: 70%;
     height: 40px;
@@ -97,4 +108,9 @@ body {
     font-size: 15px;
     color: black;
     text-decoration: solid;
+}
+
+#response-message{
+    display: flex;
+    align-content: center;
 }
