@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,14 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="01_register.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="wrapper">
-        <form action="" onsubmit="return saveForm()" method="post">
+        <form action="" onsubmit="return saveForm()" id="register-form">
             <h1>Register Here!</h1>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="text" placeholder="Full Name" required>
+                    <input type="text" placeholder="Full Name" id="fullName" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-field">
@@ -23,65 +25,109 @@
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="email" placeholder="Email" required>
+                    <input id="email" type="email" placeholder="Email" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-field">
-                    <input type="number" placeholder="Phone Number" required>
+                    <input id="phoneNumber" type="number" placeholder="Phone Number" required>
                     <i class='bx bxs-phone'></i>
                 </div>
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="date" placeholder="Date of Birth" required>
+                    <input id="dateOfBirth" type="date" placeholder="Date of Birth" required>
                     <i class='bx bx-calendar'></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" placeholder="Address" required>
+                    <input id="address" type="text" placeholder="Address" required>
                     <i class='bx bx-home'></i>
                 </div>
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="text" placeholder="Nationality" required>
+                    <input id="nationality" type="text" placeholder="Nationality" required>
                     <i class='bx bx-globe'></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" placeholder="Social Media Handle" >
+                    <input id="socialMediaPlatform" type="text" placeholder="Social Media Handle">
                     <i class='bx bx-chat'></i>
                 </div>
             </div>
             <div class="input-box">
                 <div class="input-field">
-                    <input type="password" placeholder="Password" id="password" required>
+                    <input id="password" type="password" placeholder="Password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <div class="input-field">
-                    <input type="password" placeholder="Confirm Password" required>
+                    <input id="confirmPassword" type="password" placeholder="Confirm Password" required>
                     <i class='bx bxs-lock'></i>
                 </div>
             </div>
-            <label><input type="checkbox">Remember Me</label>
+            <div class="check">
+                <label><input type="checkbox">Remember Me</label>
+                <p>Already a User ?<a href="01_login.html"> Login</a></p>
+            </div>
             <button type="submit" class="btn">Register!</button>
         </form>
+
+        <p id="response-message"></p>
     </div>
 
-    <script type="text/javascript"language="javascript">
-        function saveForm() {
-        let un = document.getElementById("username").value;
-        let pw = document.getElementById("password").value;
+    <script>
+        document.getElementById("register-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            
+            // Collect form data
+            const fullName = document.getElementById("fullName").value;
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const dateOfBirth = document.getElementById("dateOfBirth").value;
+            const address = document.getElementById("address").value;
+            const nationality = document.getElementById("nationality").value;
+            const socialMediaPlatform = document.getElementById("socialMediaPlatform").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // Save to localStorage
-        localStorage.setItem("user", JSON.stringify({ username: un, password: pw }));
-        
-        alert("Account created successfully! Redirecting to login page...");
-        
-        // Redirect to login page
-        window.location.href = "01_login.html";
-        
-        return false; // Prevent form submission
-           }
+            // Validate passwords
+            if (password !== confirmPassword) {
+                document.getElementById("response-message").innerText = "Passwords do not match!";
+                return;
+            }
+
+            // Create form data object
+            const formData = {
+                fullName: fullName,
+                username: username,
+                email: email,
+                phoneNumber: phoneNumber,
+                dateOfBirth: dateOfBirth,
+                address: address,
+                nationality: nationality,
+                socialMediaPlatform: socialMediaPlatform,
+                password: password,
+                confirmPassword: confirmPassword
+            };
+
+            // Send data to server
+            fetch('http://localhost:3001/register_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("response-message").innerText = data.message;
+            })
+            .catch(error => {
+                console.log(error.message);
+                document.getElementById("response-message").innerText = "An error occurred. Please try again.";
+            });
+        });
     </script>
-    
 </body>
+
 </html>
